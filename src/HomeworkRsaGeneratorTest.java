@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import javafx.util.Pair;
 
-public class RsaGeneratorTest {
+public class HomeworkRsaGeneratorTest {
     private class TestGenerator implements IRandomNumberGenerator{
         @Override
         public BigInteger getRandomNumber() {
