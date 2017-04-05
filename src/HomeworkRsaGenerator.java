@@ -22,19 +22,23 @@ public class HomeworkRsaGenerator implements IRsaGenerator {
     
     public Pair<BigInteger, BigInteger> generateKeys(){
         BigInteger x = randomGen.getRandomNumber();
-        while (!goodPrimeNumber(x, LOWER, UPPER)){
+        while (!isGoodEnough(x)){
             x = randomGen.getRandomNumber();
         }
         BigInteger y = randomGen.getRandomNumber();
-        while (!goodPrimeNumber(y, LOWER, UPPER)){
+        while (!isGoodEnough(y)){
             y = randomGen.getRandomNumber();
         }
         return new Pair<BigInteger, BigInteger>(x, y);
     }
     
     
-    private boolean goodPrimeNumber(BigInteger x, BigInteger lower, BigInteger upper) {
-        return x.compareTo(lower) >= 1 && x.compareTo(upper) <= 1 && isProbablyPrime(x); 
+    private boolean isGoodEnough(BigInteger x) {
+        return inRange(x, LOWER, UPPER) && isProbablyPrime(x);
+    }
+
+    private boolean inRange(BigInteger x, BigInteger lower, BigInteger upper) {
+        return x.compareTo(lower) >= 1 && x.compareTo(upper) <= 1;
     }
 
     private boolean isProbablyPrime(BigInteger x) {
