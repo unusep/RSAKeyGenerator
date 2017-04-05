@@ -18,10 +18,18 @@ public class RsaGeneratorTest {
     }
 
     IRandomNumberGenerator ranGen;
+    int NUMBITS;
+    int ACCURACY;
+    BigInteger LOWER;
+    BigInteger UPPER;
     
     @Before
-    public void initObjects() {
+    public void init() {
         ranGen = new TestGenerator();
+        NUMBITS = 128;
+        ACCURACY = 1;
+        LOWER = BigInteger.valueOf(2).pow(NUMBITS - 1);
+        UPPER = BigInteger.valueOf(2).pow(NUMBITS).subtract(BigInteger.ONE);
     }
     
     // naively checks if the keys generated are probably prime
@@ -36,14 +44,8 @@ public class RsaGeneratorTest {
     
     @Test
     public void KeysAreWithinRange() {
-        int numBits = 128;
-        int accuracy = 1;
-        IRsaGenerator RsaGen = new HomeworkRsaGenerator(ranGen, numBits, accuracy);
+        IRsaGenerator RsaGen = new HomeworkRsaGenerator(ranGen, NUMBITS, ACCURACY);
         Pair<BigInteger, BigInteger> keys = RsaGen.generateKeys();
-
-        BigInteger LOWER = BigInteger.valueOf(2).pow(numBits - 1);
-        BigInteger UPPER = BigInteger.valueOf(2).pow(numBits).subtract(BigInteger.ONE);
-        
         assertTrue(keys.getKey().compareTo(LOWER) >= 1);
         assertTrue(keys.getValue().compareTo(UPPER) <= 1);
     }
