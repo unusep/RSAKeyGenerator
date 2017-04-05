@@ -9,6 +9,7 @@ public class RandomOrgGen implements IRandomNumberGenerator {
     private int numStrings = 10;
     private int lenString = 20;
     private Stack<String> results = new Stack<String>();
+    private int digitLength = 38;
     
     /**
      * sets the number of strings, numStrings each of length, lenString to request 
@@ -26,7 +27,7 @@ public class RandomOrgGen implements IRandomNumberGenerator {
     
     public BigInteger getRandomNumber(){
         String num = "";
-        while (num.length() < 38){
+        while (num.length() < digitLength){
             if (results.isEmpty()){
                 try {
                     URL url = new URL("https://www.random.org/strings/?num=" + numStrings + "&len=" + lenString + "&digits=on&upperalpha=off&loweralpha=off&unique=off&format=plain&rnd=new");
@@ -53,5 +54,10 @@ public class RandomOrgGen implements IRandomNumberGenerator {
         }
         
         return new BigInteger(num);
+    }
+
+    @Override
+    public void setLength(int length) {
+        this.digitLength = length;
     }
 }

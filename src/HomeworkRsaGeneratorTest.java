@@ -15,6 +15,10 @@ public class HomeworkRsaGeneratorTest {
             BigInteger b = new BigInteger(128, new Random());
             return b;
         }
+
+        @Override
+        public void setLength(int length) {
+        }
     }
 
     IRandomNumberGenerator ranGen;

@@ -18,8 +18,17 @@ public class HomeworkRsaGenerator implements IRsaGenerator {
         this.UPPER = BigInteger.valueOf(2).pow(numBits).subtract(BigInteger.ONE);
         this.ACCURACY = accuracy; 
         this.randomGen = generator;
+        generator.setLength(getLength(this.UPPER));
     }
     
+    private int getLength(BigInteger upper) {
+        if (upper.equals(BigInteger.ZERO)){
+            return 0;
+        } else {
+            return 1 + getLength(upper.divide(BigInteger.valueOf(10)));
+        }
+    }
+
     public Pair<BigInteger, BigInteger> generateKeys(){
         BigInteger x = randomGen.getRandomNumber();
         while (!isGoodEnough(x)){
